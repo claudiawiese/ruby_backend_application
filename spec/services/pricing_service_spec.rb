@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+require_relative '../../shared/models/rental'
+require_relative '../../shared/models/car'
+require_relative '../../shared/services/pricing_service'
+
+RSpec.describe PricingService do
+  let(:car) { Car.new(id: 1, price_per_day: 100, price_per_km: 10) }
+  let(:start_date) { '2015-12-8' }
+  let(:end_date) { '2015-12-8' }
+  let(:rental) { Rental.new(id: 1, car: car, start_date: start_date, end_date: end_date, distance: 100) }
+
+  let(:pricing_service) { PricingService.new(rental) }
+
+  describe '#calculate_rental_price' do
+    context 'when rental duration is 1 day' do
+      it 'calculates correct rental price' do
+        result = pricing_service.calculate_price
+        expect(result).to eq(1100)
+      end
+    end
+
+    context 'when rental duration is 3 days' do
+      let(:end_date) { '2015-12-10' }
+      it 'calculates correct rental_price' do
+        result = pricing_service.calculate_price
+        expect(result).to eq(1300)
+      end
+    end
+  end
+end 
