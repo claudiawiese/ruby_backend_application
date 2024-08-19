@@ -2,6 +2,8 @@
 
 require 'date'
 require_relative '../services/pricing_service'
+require_relative '../services/commission_service'
+
 
 # This model initalizes Rental object
 class Rental
@@ -28,6 +30,10 @@ class Rental
 
   def display_discount
     PricingService.new(self).calculate_discount
+  end
+
+  def display_commission
+    CommissionService.new(self).calculate_commission
   end
 
 end
