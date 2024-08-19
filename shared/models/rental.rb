@@ -3,7 +3,7 @@
 require 'date'
 require_relative '../services/pricing_service'
 require_relative '../services/commission_service'
-
+require_relative '../services/credit_debit_service'
 
 # This model initalizes Rental object
 class Rental
@@ -34,6 +34,10 @@ class Rental
 
   def display_commission
     CommissionService.new(self).calculate_commission
+  end
+
+  def display_credit_debit
+    CreditDebitService.new(self).dispatch_credit_debit
   end
 
 end
