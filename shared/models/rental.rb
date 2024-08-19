@@ -25,4 +25,9 @@ class Rental
   def display_rental_price
     PricingService.new(self).calculate_price
   end
+
+  def display_discount
+    PricingService.new(self).calculate_discount
+  end
+
 end

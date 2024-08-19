@@ -29,4 +29,53 @@ RSpec.describe PricingService do
       end
     end
   end
+
+  describe '#calculate_discount' do
+    context 'when rental duration is 1 day' do
+      it 'calculates correct rental price with discount' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1100.0)
+      end
+    end
+
+    context 'when rental duration is 3 days' do
+      let(:end_date) { '2015-12-10' }
+      it 'calculates correct rental_price with discount' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1280.0)
+      end
+    end
+
+    context 'when rental duration is 4 days' do
+      let(:end_date) { '2015-12-11' }
+      it 'calculates correct rental_price with discount' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1370.0)
+      end
+    end
+
+    context 'when rental duration is 5 days' do
+      let(:end_date) { '2015-12-12' }
+      it 'calculates correct rental_price with discount' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1440.0)
+      end
+    end
+
+    context 'when rental duration is 10 days' do
+      let(:end_date) { '2015-12-17' }
+      it 'calculates correct discount_price for 10 days' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1790.0)
+      end
+    end
+
+    context 'when rental duration is 11 days' do
+      let(:end_date) { '2015-12-18' }
+      it 'calculates correct rental_price with discount' do
+        result = pricing_service.calculate_discount
+        expect(result).to eq(1840.0)
+      end
+    end
+  end
 end 
