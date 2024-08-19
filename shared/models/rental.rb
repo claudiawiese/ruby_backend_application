@@ -40,4 +40,16 @@ class Rental
     CreditDebitService.new(self).dispatch_credit_debit
   end
 
+  def display_credit_debit_with_options
+    CreditDebitService.new(self).dispatch_credit_debit_with_options
+  end
+
+  def display_options
+    # display only option types
+    option_types = []
+    @options.each do |option|
+      option_types << option.type
+    end
+    option_types
+  end
 end

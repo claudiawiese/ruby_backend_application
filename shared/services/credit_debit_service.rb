@@ -19,4 +19,19 @@ class CreditDebitService
         { "who": 'drivy', "type": 'credit', "amount": commission[:drivy_fee] }
       ]
     end
+  
+    def dispatch_credit_debit_with_options
+      option_prices = @pricing_service.calculate_options_price
+      transactions = dispatch_credit_debit
+  
+      # add total of option to rental price for the driver
+      transactions[0][:amount] += option_prices[:gps] + option_prices[:baby_seat] + option_prices[:additional_insurance]
+  
+      # add gps and baby_seat prices to owner_fee
+      transactions[1][:amount] += option_prices[:gps] + option_prices[:baby_seat]
+  
+      # add additional insurance prce to drivy_fee
+      transactions[4][:amount] += option_prices[:additional_insurance]
+      transactions
+    end
 end
